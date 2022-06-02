@@ -37,6 +37,28 @@ const createClient = (client) => {
     setLocalStorage(dbClient)
 }
 
+const isValidFields = () => {
+    document.getElementsById('form').reportValidity()
+}
+
+const clearLocalStorage = () => {
+    const fields = document.querySelectorAll('.modal-field')
+    fields.forEach(field => field.value = "")
+}
+
+const saveClient = () => {
+    if (isValidFields())
+    const client = {
+        nome: documet.getElementById('nome').value
+        email: documet.getElementById('email').value,
+        celular: documet.getElementById('celular').value,
+        cidade: documet.getElementById('cidade').value
+    }
+    createClient(client)
+    clearFields()
+    closeModal()
+}
+
 // Eventos
 document.getElementbyId('cadastrarCliente')
 .addEventListener('click', openModal)
@@ -44,3 +66,5 @@ document.getElementbyId('cadastrarCliente')
 document.getElementById('modalClose')
 .addEventListener('click', closeModal)
 
+document.getElementbyId('salvar')
+.addEventListener('click', saveClient)
