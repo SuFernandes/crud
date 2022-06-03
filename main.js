@@ -3,14 +3,9 @@
 const openModal = () => document.getElementById('modal')
 .classList.add('active')
 
-const closeModal = () => document.getElementById('modal')
-.classList.remove('active')
-
-const tempClient = {
-    nome: "Suelen",
-    email: "suelen@gmail.com",
-    celular: "118855396",
-    cidade: "Porto Alegre"
+const closeModal = () => {
+    clearFields()
+    document.getElementById('modal').classList.remove('active')
 }
 
 const getLocalStorage = () => JSON.parse(localStorage.getItem('dbClient')) ?? []
@@ -55,16 +50,53 @@ const saveClient = () => {
         cidade: documet.getElementById('cidade').value
     }
     createClient(client)
-    clearFields()
     closeModal()
 }
 
+const createRow = (client, index) => {
+    const newRow = document.createElement('tr')
+    newRow.innerHTML = '
+    <td>${client.name}</td>
+    <td>${client.email}</td>
+    <td>${client.celular}</td>
+    <td>${client.cidade}</td>
+    <td>
+        <button type="button" class="button green" id="edit-${index}">Editar</button>
+        <button type="button" class="button red" id="delete-${index}">excluir</button>
+    </td>
+    '
+
+    document.querySelector('#tableClient>tbody').appendChild(newRow)
+}
+
+const clearTable = () => {
+    const rows = document.querySelectorAll('#tableClient>tbody tr')
+    rows.forEach(row => row.parentNode.removeChild(row))
+}
+
+const updateTable = () => {
+    const dbClient = readClient()
+    clearTable()
+    dbClient.forEach(createRow)
+}
+
+const editDelete = (event) => {
+    if (event.target.type == 'button') {
+        
+        const [action, index] = event.target.id.split('-')
+    }
+}
+
+
 // Eventos
 document.getElementbyId('cadastrarCliente')
-.addEventListener('click', openModal)
+    .addEventListener('click', openModal)
 
 document.getElementById('modalClose')
-.addEventListener('click', closeModal)
+    .addEventListener('click', closeModal)
 
 document.getElementbyId('salvar')
-.addEventListener('click', saveClient)
+    .addEventListener('click', saveClient)
+
+document.querySelector('#tableClient>tbody')
+    .addEventListener('click', editDelete)
