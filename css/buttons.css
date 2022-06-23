@@ -9,11 +9,11 @@
     transition: box-shadow .6s ease;
 }
 
-.button blue{
+.button.blue{
     background-color: #1FB6FF;
 }
 
-.button green{
+button.green{
     background-color: #13CE66;
 }
 
